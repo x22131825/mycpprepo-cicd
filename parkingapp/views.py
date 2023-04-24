@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from .models import Parking
 from django.contrib import messages
+from .my_library import delete_parking_data
+
 
 # Create your views here.
 def index(request):
@@ -49,7 +51,12 @@ def updateData(request,id):
     return render(request,"edit.html",context)
 
 def deleteData(request,id):
-    d=Parking.objects.get(id=id)
-    d.delete()
-    messages.error(request,"Data Deleted Successfully", extra_tags='danger')
+    delete_parking_data(id, request)
     return redirect("/")
+
+
+# def deleteData(request,id):
+#     d=Parking.objects.get(id=id)
+#     d.delete()
+#     messages.error(request,"Data Deleted Successfully", extra_tags='danger')
+#     return redirect("/")
